@@ -9,7 +9,7 @@ for i=1:length(D)
     k=strfind(D(i).name,str);
     if(isempty(k)==0)
         name=D(i).name;
-        data = read_complex_binary (name, 40000000);%saves first 40,000,000 samples of file into a dataset array
+        data = read_complex_binary (name, 4000000);%saves first 4,000,000 samples of file into a dataset array
         database{row,column}=data;
         database_name{row,column}=name;
         column=column+1;
@@ -20,4 +20,4 @@ for i=1:length(D)
     end
 end
 name='data.mat';
-save(name,'database_name','database');
+save(name,'database_name','database','-v7.3');
