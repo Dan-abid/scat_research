@@ -1,7 +1,8 @@
 % Generate Figure 1 of the "Deep Scattering Spectrum" paper.
 
 % Load the signal.
-x = wavread('dilation.wav');
+% x = wavread('dilation.wav');
+x = audioread('dilation.wav');
 
 % Prepare the spectrogram parameters.
 window_size = 128;

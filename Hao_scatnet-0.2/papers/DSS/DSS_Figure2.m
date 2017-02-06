@@ -1,8 +1,8 @@
 % Generate Figure 2 of the "Deep Scattering Spectrum" paper.
 
 % Load signal (music).
-x = wavread('kodaly.wav');
-
+% x = wavread('kodaly.wav');
+x = audioread('dilation.wav');
 % Prepare filters.
 filt_opt.B = 8;
 filt_opt.Q = 4*filt_opt.B;
