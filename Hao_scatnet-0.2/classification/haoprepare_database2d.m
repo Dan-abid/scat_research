@@ -105,15 +105,15 @@ function db = haoprepare_database2d(src,feature_fun,opt)
             GN=Global_N;
             start=randi([1,2000],1);
             if k<251
-                x=[(opennoleak(start:start+GN-1, 1)).';
-                    (opennoleak(start:start+GN-1, 3)).';
-                    (opennoleak(start:start+GN-1, 5)).';
-                    (opennoleak(start:start+GN-1, 7)).'];%hao
+                x=[(opennoleak(start:start+GN-1, 1)+i*opennoleak(start:start+GN-1, 1)).';
+                    (opennoleak(start:start+GN-1, 3)+i*opennoleak(start:start+GN-1, 3)).';
+                    (opennoleak(start:start+GN-1, 5)+i*opennoleak(start:start+GN-1, 5)).';
+                    (opennoleak(start:start+GN-1, 7)+i*opennoleak(start:start+GN-1, 7)).'];%hao
             else
-                x=[(openleak(start:start+GN-1, 1)).';
-                    (openleak(start:start+GN-1, 3)).';
-                    (openleak(start:start+GN-1, 5)).';
-                    (openleak(start:start+GN-1, 7)).'];%hao
+                x=[(openleak(start:start+GN-1, 1)+i*opennoleak(start:start+GN-1, 1)).';
+                    (openleak(start:start+GN-1, 3)+i*opennoleak(start:start+GN-1, 1)).';
+                    (openleak(start:start+GN-1, 5)+i*opennoleak(start:start+GN-1, 1)).';
+                    (openleak(start:start+GN-1, 7)+i*opennoleak(start:start+GN-1, 1)).'];%hao
             end
 
             

@@ -110,7 +110,7 @@ function filters = morlet_filter_bank_2d(size_in, options)
 				angle);
 				
 			psi.filter{p} = cast(real(fft2(filter_spatial)));
-			
+			            
 			littlewood_final = littlewood_final + ...
 				abs(realize_filter(psi.filter{p})).^2;
 			

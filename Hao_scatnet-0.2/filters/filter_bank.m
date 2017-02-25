@@ -67,14 +67,14 @@ function filters = filter_bank(sig_length, options)
 		options = struct();
 	end
 	
-	options = fill_struct(options, 'filter_type', 'morlet_1d');
-	options = fill_struct(options, 'Q', []);
+	options = fill_struct(options, 'filter_type', 'morlet_1d');%Hao initialed
+	options = fill_struct(options, 'Q', []);%Hao initialed
 	options = fill_struct(options, 'B', []);
 	options = fill_struct(options, 'xi_psi', []);
 	options = fill_struct(options, 'sigma_psi', []);
 	options = fill_struct(options, 'phi_bw_multiplier', []);
 	options = fill_struct(options, 'sigma_phi', []);
-	options = fill_struct(options, 'J', []);
+	options = fill_struct(options, 'J', []);%Hao initialed
 	options = fill_struct(options, 'P', []);
 	options = fill_struct(options, 'spline_order', []);
 	options = fill_struct(options, 'precision', 'double');

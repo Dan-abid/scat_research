@@ -47,7 +47,7 @@ function [Wop, filters] = wavelet_factory_1d(N, filt_opt, scat_opt)
 		scat_opt = struct(); 
     end
     scat_opt = fill_struct(scat_opt, 'M', 2); % M is the scattering order
-	
+
     Wop = cell(1,scat_opt.M);
 	for m = 0:scat_opt.M
 		filt_ind = min(numel(filters), 1+m);

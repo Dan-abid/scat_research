@@ -47,7 +47,7 @@ function model = affine_train(db,train_set,opt)
 			v{k} = v{k}(:,1:max(opt.dim));
 		end
 	end
-	save('v.mat')%hao
+	
 	% Prepare output.
 	model.model_type = 'affine';
 	model.dim = opt.dim;
@@ -76,5 +76,5 @@ function [u,s] = sig_pca(x,M)
 		[s,ind] = sort(diag(d),'descend');
 		u = u(:,ind);
     end
-    save('u.mat')%hao
+
 end

@@ -14,21 +14,22 @@
 %       options.parallel (boolean): If true, tries to use the Distributed 
 %          Computing Toolbox to speed up calculation (default true).
 %       Other options are listed in the help for the FEATURE_WRAPPER function.
+%    ind is the index of Pipeline Position  
 % Output
 %    database (struct): The database of feature vectors.
 %
 % See also
 %    CREATE_SRC, FEATURE_WRAPPER
 
-function db = prepare_database(src,feature_fun,opt)
+function db = haoprepare_database1d(src,feature_fun,opt,ind)
 	if nargin < 3
 		opt = struct();
 	end
 	
 	opt = fill_struct(opt, 'feature_sampling', 1);
 	opt = fill_struct(opt, 'file_normalize', []);
-	opt = fill_struct(opt, 'parallel', 1);
-	
+	opt = fill_struct(opt, 'parallel',0); %hao it was 1, but I did not like to do parallel compute  
+    
 	features = cell(1,length(src.files));
 	obj_ind = cell(1,length(src.files));
 	
@@ -36,6 +37,11 @@ function db = prepare_database(src,feature_fun,opt)
 	cols = 0;
 	precision = 'double';
 	
+    load('bt110e6.mat')
+    load('zigbee100e6')
+    load('wifi2100e6')
+    global G_N
+    
 	if opt.parallel
 		% parfor loop - note that the contents are the same as the serial loop, but
 		% MATLAB doesn't seem to offer an easy way of deduplicating the code.
@@ -53,15 +59,19 @@ function db = prepare_database(src,feature_fun,opt)
 			tm0 = tic;
 
 			% Load the complete file and normalize as needed.
-			x = data_read(src.files{k});
-			
+% 			x = data_read(src.files{k});
+    
+            
 			if ~isempty(opt.file_normalize)
 				if opt.file_normalize == 1
 					x = x/sum(abs(x(:)));
+                    1%hao not used
 				elseif opt.file_normalize == 2
 					x = x/sqrt(sum(abs(x(:)).^2));
+                    2%hao not used
 				elseif opt.file_normalize == Inf
 					x = x/max(abs(x(:)));
+                    3%hao not used
 				end
 			end
 		
@@ -76,7 +86,7 @@ function db = prepare_database(src,feature_fun,opt)
 			% cients, N corresponds to the number of features - the number of "windows"
 			% - in each object, and K corresponds to the number of objects.
 			buf = apply_features(x,src.objects(file_objects),feature_fun,opt);
-			
+
 			% Subsample among the features as needed.
 			buf = buf(:,1:opt.feature_sampling:end,:);
 
@@ -84,7 +94,7 @@ function db = prepare_database(src,feature_fun,opt)
 			for l = 1:length(file_objects)
 				features{k}{l} = buf(:,:,l);
 			end
-			fprintf('.');
+			fprintf('.\n');
 		end
 	else
 		time_start = clock;
@@ -96,23 +106,40 @@ function db = prepare_database(src,feature_fun,opt)
 			end
 			
 			tm0 = tic;
-			x = data_read(src.files{k});
-			
+			% Load the complete file and normalize as needed.
+% 			x = data_read(src.files{k});%hao commonted the default way reading data
+            x=bt110e6(1:G_N);
+            start=randi([1,2e6],1);%hao reading data from here
+            k
+            if k<50
+                x=bt110e6(start:start+G_N-1);%hao
+            else
+                if k<100
+                    x=zigbee100e6(start:start+G_N-1);%hao   
+                else
+                    x=wifi2100e6(start:start+G_N-1);%hao
+                end
+            end     
+                      
+            
 			if ~isempty(opt.file_normalize)
 				if opt.file_normalize == 1
 					x = x/sum(abs(x(:)));
+                    %hao not used
 				elseif opt.file_normalize == 2
 					x = x/sqrt(sum(abs(x(:)).^2));
+                    %hao not used
 				elseif opt.file_normalize == Inf
 					x = x/max(abs(x(:)));
+                    %hao not used
 				end
 			end
+		
 			
 			features{k} = cell(1,length(file_objects));
 			obj_ind{k} = file_objects;
-			
 			buf = apply_features(x,src.objects(file_objects),feature_fun,opt);
-			
+            
 			buf = buf(:,1:opt.feature_sampling:end,:);
 
 			for l = 1:length(file_objects)
@@ -120,7 +147,7 @@ function db = prepare_database(src,feature_fun,opt)
 			end
 			time_elapsed = etime(clock, time_start);
 			estimated_time_left = time_elapsed * (length(src.files)-k) / k;
-			fprintf('.');
+% 			fprintf('.\n');%hao
 		end
 	end
 

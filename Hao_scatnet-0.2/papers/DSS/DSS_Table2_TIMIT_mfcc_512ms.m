@@ -56,7 +56,7 @@ optt1 = optt;
 optt1.C = C;
 optt1.gamma = gamma;
 
-model = svm_train(db,train_set,optt1);
+model = (db,train_set,optt1);
 labels = svm_test(db,model,test_set);
 err = classif_err(labels,test_set,db.src);
 			

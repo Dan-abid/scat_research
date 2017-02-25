@@ -54,5 +54,4 @@ function [S, U] = scat(x, Wop)
 			S{m+1} = Wop{m+1}(U{m+1});
         end
     end
-     save('layercoefficient');%hao========
 end

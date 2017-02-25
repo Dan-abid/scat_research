@@ -41,6 +41,7 @@ function [x_phi, x_psi, meta_phi, meta_psi] = wavelet_1d(x, filters, options)
 	N = size(x,1);
 
 	if size(x,2) > 1
+        x
 		error(['Input x must be one-dimensional! Multiple signals can be ' ...
 		'specified by letting x be of the form Nx1xK, where K is the ' ...
 		'number of signals.']);

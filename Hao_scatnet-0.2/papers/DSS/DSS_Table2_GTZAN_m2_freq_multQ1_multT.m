@@ -45,6 +45,7 @@ scatt_fun2 = @(x)(log_scat(renorm_scat(scat(x,Wop2))));
 fscatt_fun2 = @(x)(func_output(@scat_freq,2,scatt_fun2(x),fWop2));
 feature_fun2 = @(x)(format_scat(fscatt_fun2(x)));
 
+% different from just multQ1
 filt3_opt = filt1_opt;
 filt3_opt.J = T_to_J(2*8192,filt3_opt);
 

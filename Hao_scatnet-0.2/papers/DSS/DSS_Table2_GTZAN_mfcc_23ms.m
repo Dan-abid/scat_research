@@ -7,7 +7,7 @@ run_name = 'DSS_Table2_GTZAN_mfcc_23ms';
 
 N = 5*2^17;
 
-src = gtzan_src('/path/to/gtzan');
+src = gtzan_src('C:\Users\HaoChris\Documents\MATLAB\genres');
 
 filt1_opt.wavelet_type = {'gabor','morlet'};
 filt1_opt.Q = [8 2];

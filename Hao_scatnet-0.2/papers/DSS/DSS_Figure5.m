@@ -1,7 +1,7 @@
 % Generate Figure 5 of the "Deep Scattering Spectrum" paper.
 
 % Load first signal (speech).
-x1 = wavread('questions.wav');
+x1 = audioread('questions.wav');
 
 % Prepare filters.
 filt_opt.B = [8 1];
@@ -28,7 +28,7 @@ S = scat(x1, Wop);
 x1t2 = inverse_scat(S, filters, inv_scat_opt);
 
 % Load second signal (music)
-x2 = wavread('kodaly.wav');
+x2 = audioread('kodaly.wav');
 x2 = x2(4097:4096+16384);
 
 % Prepare filters.
